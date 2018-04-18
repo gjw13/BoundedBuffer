@@ -36,7 +36,6 @@ void* producer(void* arg)
 			prod_sleep++;
 			pthread_cond_wait(&empty, &m);
 			prod_sleep--;
-//			printf("producer waiting\n");
 		}
 		do_fill(put);
 		put++;
@@ -82,28 +81,26 @@ int main(int argc, char *argv[])
 	int g;
 	for(g=0; g<num_producers; g++){
 		pthread_create(&pid[g], NULL, producer, NULL);
-		printf("producer %d created\n",g+1);
+//		printf("producer %d created\n",g+1);
 	}
 
 	// create consumer threads
 	int i;
 	for(i=0; i< num_consumers; i++){
 		pthread_create(&cid[i], NULL, consumer, NULL);
-		printf("consumer %d created\n",i+1);
+//		printf("consumer %d created\n",i+1);
 	}
 	// join producer threads
 	for(g=0; g < num_producers; g++){
 		pthread_join(pid[g], NULL);	
-		printf("producer %d joined\n",g+1);
+//		printf("producer %d joined\n",g+1);
 	}
 	// join consumer threads
 	int j=0;
 	for (j; j< num_consumers; j++){
 		pthread_join(cid[j],NULL);
-		printf("consumer %d joined\n",j+1);
+//		printf("consumer %d joined\n",j+1);
 	}
-//	printf("producers asleep: %d\n", prod_sleep);
-//	printf("consumers asleep: %d\n", cons_sleep);
 	printf("program done\n");
 	return 0;
 }
